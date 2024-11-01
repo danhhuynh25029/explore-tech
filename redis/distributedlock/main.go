@@ -8,6 +8,9 @@ import (
 	"sync"
 )
 
+// Optimistic lock : read heavy,low update
+// Pessimistic lock : high update
+
 var count = 0
 
 func incrUseDisLock(i int) {
