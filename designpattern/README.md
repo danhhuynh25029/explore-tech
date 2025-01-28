@@ -1,0 +1,9 @@
+### Creational
+* Singleton
+* Factory
+* Builder
+### Structure
+* Adapter
+* Facade
+* Bridge
+* Decorator

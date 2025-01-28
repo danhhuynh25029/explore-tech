@@ -24,8 +24,8 @@ func main() {
 	js, _ := jetstream.New(nc)
 
 	cfg := jetstream.StreamConfig{
-		Name:     "EVENTS",
-		Subjects: []string{"events.>"},
+		Name:     "ORDERS1",
+		Subjects: []string{"orders.>"},
 	}
 
 	cfg.Storage = jetstream.FileStorage
@@ -36,21 +36,21 @@ func main() {
 	_, _ = js.CreateStream(ctx, cfg)
 	fmt.Println("created the stream")
 
-	js.Publish(ctx, "ORDERS.page_loaded", []byte("hello page_loaded"))
-	js.Publish(ctx, "ORDERS.mouse_clicked", []byte("hello mouse_clicked"))
-	js.Publish(ctx, "ORDERS.mouse_clicked", []byte("hello mouse_clicked"))
-	js.Publish(ctx, "ORDERS.page_loaded", []byte("hello page_loaded"))
-	js.Publish(ctx, "ORDERS.mouse_clicked", []byte("hello mouse_clicked"))
-	js.Publish(ctx, "ORDERS.input_focused", []byte("hello input_focused"))
+	js.Publish(ctx, "orders.page_loaded", []byte("hello page_loaded"))
+	js.Publish(ctx, "orders.mouse_clicked", []byte("hello mouse_clicked"))
+	js.Publish(ctx, "orders.mouse_clicked", []byte("hello mouse_clicked"))
+	js.Publish(ctx, "orders.page_loaded", []byte("hello page_loaded"))
+	js.Publish(ctx, "orders.mouse_clicked", []byte("hello mouse_clicked"))
+	js.Publish(ctx, "orders.input_focused", []byte("hello input_focused"))
 	fmt.Println(ctx, "published 6 messages")
 
-	js.Publish(ctx, "events.page_loaded", []byte("hello page_loaded"))
-	js.Publish(ctx, "events.mouse_clicked", []byte("hello mouse_clicked"))
-	js.Publish(ctx, "events.mouse_clicked", []byte("hello mouse_clicked"))
-	js.Publish(ctx, "events.page_loaded", []byte("hello page_loaded"))
-	js.Publish(ctx, "events.mouse_clicked", []byte("hello mouse_clicked"))
-	js.Publish(ctx, "events.input_focused", []byte("hello input_focused"))
-	fmt.Println(ctx, "published 6 messages")
+	//js.Publish(ctx, "events.page_loaded", []byte("hello page_loaded"))
+	//js.Publish(ctx, "events.mouse_clicked", []byte("hello mouse_clicked"))
+	//js.Publish(ctx, "events.mouse_clicked", []byte("hello mouse_clicked"))
+	//js.Publish(ctx, "events.page_loaded", []byte("hello page_loaded"))
+	//js.Publish(ctx, "events.mouse_clicked", []byte("hello mouse_clicked"))
+	//js.Publish(ctx, "events.input_focused", []byte("hello input_focused"))
+	//fmt.Println(ctx, "published 6 messages")
 	select {
 	case <-js.PublishAsyncComplete():
 		fmt.Println("published 6 messages")
@@ -60,7 +60,7 @@ func main() {
 
 	// getMessageFromStream
 
-	getMessageFromStream()
+	//getMessageFromStream()
 }
 
 func getMessageFromStream() {
