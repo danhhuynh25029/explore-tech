@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<body>
+<ul id="list"></ul>
+</body>
+
+<script type="text/javascript">
+    const list = document.getElementById("list");
+    const  listenSSE = () => {
+        const eventSrc = new EventSource("http://127.0.0.1:8080/events");
+        eventSrc.onopen = (event) => {
+            console.log('SSE connection opened.');
+        }
+        eventSrc.onerror = (event) => {
+            const li = document.createElement("li");
+            li.textContent = `Connection lost. Retrying...`;
+            list.appendChild(li);
+            eventSrc.close()
+            setTimeout(() => {
+                listenSSE()
+            }, 2000);
+        };
+        eventSrc.onmessage = (event) => {
+            const li = document.createElement("li");
+            li.textContent = `message: ${event.data}`;
+
+            list.appendChild(li);
+        };
+    }
+    listenSSE()
+</script>
+</html>
