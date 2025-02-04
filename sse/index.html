@@ -16,11 +16,11 @@
             li.textContent = `Connection lost. Retrying...`;
             list.appendChild(li);
             // eventSrc.close()
-            setTimeout(() => {
-                eventSrc.onopen = (event) => {
-                    console.log('SSE reconnect');
-                }
-            }, 2000);
+            // setTimeout(() => {
+            //     eventSrc.onopen = (event) => {
+            //         console.log('SSE reconnect');
+            //     }
+            // }, 2000);
         };
         eventSrc.onmessage = (event) => {
             const li = document.createElement("li");

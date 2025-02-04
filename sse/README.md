@@ -1,3 +1,3 @@
 Server Send Event
 
-* Implement exponential backoff 
+* Implement exponential backoff

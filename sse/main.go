@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+var id = 0
+
 func sseHandler(w http.ResponseWriter, r *http.Request) {
 	// Set http headers required for SSE
 	fmt.Println("--------")
@@ -32,7 +34,10 @@ func sseHandler(w http.ResponseWriter, r *http.Request) {
 		case <-t.C:
 			// Send an event to the client
 			// Here we send only the "data" field, but there are few others
-			_, err := fmt.Fprintf(w, "data: The time is %s\n\n", time.Now().Format(time.UnixDate))
+			// data : contain data response client
+			// retry : time to client reconnect to server when lost connection. You can reconnect with code in client
+			// id : last-event-id
+			_, err := fmt.Fprintf(w, "id: %d \ndata: The time is %s\nretry: 10000\n\n", id, time.Now().Format(time.UnixDate))
 			if err != nil {
 				return
 			}
@@ -40,6 +45,7 @@ func sseHandler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				return
 			}
+			id += 1
 		}
 	}
 }
