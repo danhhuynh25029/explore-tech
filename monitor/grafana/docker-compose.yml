@@ -1,23 +1,23 @@
 version: "3"
 services:
-  cadvisor:
-    container_name: cadvisor
-    image: gcr.io/cadvisor/cadvisor:latest
-    networks:
-      - "fido2-ecosystem"
-#      - "host"
-    #network_mode: "host"
-    ports:
-      - "8085:8085"
-    volumes: 
-      - "/:/rootfs"
-      - "/var/run:/var/run"
-      - "/sys:/sys"
-      - "/var/lib/docker/:/var/lib/docker"
-      - "/dev/disk/:/dev/disk"
-    privileged: true
-    devices: 
-      - "/dev/kmsg"
+#  cadvisor:
+#    container_name: cadvisor
+#    image: gcr.io/cadvisor/cadvisor:latest
+#    networks:
+#      - "fido2-ecosystem"
+##      - "host"
+#    #network_mode: "host"
+#    ports:
+#      - "8085:8085"
+#    volumes:
+#      - "/:/rootfs"
+#      - "/var/run:/var/run"
+#      - "/sys:/sys"
+#      - "/var/lib/docker/:/var/lib/docker"
+#      - "/dev/disk/:/dev/disk"
+#    privileged: true
+#    devices:
+#      - "/dev/kmsg"
 
   prometheus:
     container_name: prometheus
@@ -29,8 +29,8 @@ services:
     volumes: 
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
     privileged: true
-    depends_on:
-      - cadvisor
+#    depends_on:
+#      - cadvisor
 
   grafana:
     container_name: grafana
@@ -50,10 +50,20 @@ services:
     privileged: true
     depends_on:
       - prometheus
-
+  jaeger:
+    container_name: jaeger
+    image: jaegertracing/all-in-one:latest
+    networks:
+      - "fido2-ecosystem"
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
 volumes:
   grafana-data:
 networks:
   fido2-ecosystem:
-    name: fido2-ecosystem
     driver: bridge
